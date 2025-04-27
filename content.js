@@ -28,7 +28,7 @@ async function autoApply() {
       // 找到左侧工作列表容器并滚动
       const jobListContainer = document.querySelector('.job-list-container');
       if (jobListContainer) {
-        jobListContainer.scrollBy(0, 500);
+        jobListContainer.scrollBy(0, 1500);
       }
       await randomDelay();
       autoApply();
@@ -59,6 +59,13 @@ async function autoApply() {
             };
             checkDetail();
           });
+
+          // 过滤掉半年前活跃的职位
+          const activeTime = document.querySelector('.boss-active-time');
+          const activeTimeText = ['半年前活跃', '3月内活跃', '2月内活跃'];
+          if (activeTime && activeTimeText.includes(activeTime.textContent.trim())) {
+            continue;
+          }
 
           // 查找并点击"立即沟通"按钮
           const chatButton = document.querySelector(`a[ka*="cpc_job_list_chat_"][class*="op-btn-chat"]`);
