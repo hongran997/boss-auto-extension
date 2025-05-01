@@ -12,7 +12,7 @@ function stopAllOperations() {
   const button = document.getElementById('auto-apply-button');
   if (button) {
     button.className = 'auto-apply-button';
-    button.textContent = '停止自动投递';
+    button.textContent = '开始自动投递';
   }
 }
 
@@ -26,10 +26,9 @@ async function autoApply() {
 
     if (jobCards.length === 0) {
       // 找到左侧工作列表容器并滚动
-      const jobListContainer = document.querySelector('.job-list-container');
-      if (jobListContainer) {
-        jobListContainer.scrollBy(0, 500);
-      }
+      const currentScroll = window.scrollY || document.documentElement.scrollTop;
+      // 每次都滚动
+      window.scrollTo(0, currentScroll + 500);
       await randomDelay();
       autoApply();
       return;
