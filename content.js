@@ -25,10 +25,7 @@ async function autoApply() {
     const jobCards = document.querySelectorAll('.card-area:not([data-processed="true"])');
 
     if (jobCards.length === 0) {
-      // 找到左侧工作列表容器并滚动
-      const currentScroll = window.scrollY || document.documentElement.scrollTop;
-      // 每次都滚动
-      window.scrollTo(0, currentScroll + 500);
+      window.scrollBy(0, 800);
       await randomDelay();
       autoApply();
       return;
