@@ -29,7 +29,7 @@ async function autoApply() {
 
     if (jobCards.length === 0) {
       window.scrollBy(0, 800);
-      
+      await randomDelay();
       const isAtBottom = window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight;
       if (isAtBottom) {
         console.log('已滚动到页面底部');
@@ -45,7 +45,7 @@ async function autoApply() {
         cityBtn.click();
         await randomDelay();
       }
-      await randomDelay();
+      
       autoApply();
       return;
     }
