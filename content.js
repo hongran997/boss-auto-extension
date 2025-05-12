@@ -6,6 +6,9 @@ async function randomDelay() {
   await new Promise(resolve => setTimeout(resolve, delay));
 }
 
+const cities = ['上海', '杭州', '苏州', '北京', '深圳', '广州', '成都', '武汉', '西安', '天津', '重庆', '厦门', '长沙', '郑州', '全国'];
+
+const cityIndex = 0;
 // 添加一个函数来停止所有操作
 function stopAllOperations() {
   isRunning = false;
@@ -26,6 +29,22 @@ async function autoApply() {
 
     if (jobCards.length === 0) {
       window.scrollBy(0, 800);
+      
+      const isAtBottom = window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight;
+      if (isAtBottom) {
+        console.log('已滚动到页面底部');
+        // try to test;
+        const locationBtn = document.querySelector('.city-label.active');  
+        locationBtn.click();
+        await randomDelay();
+        // 选择下一个城市
+        const index = cities.indexOf(locationBtn.textContent.trim());
+        const cityIndex = (index + 1) % cities.length;
+        const nextCity = cities[cityIndex];
+        const cityBtn = Array.from(document.querySelectorAll('.city-list-hot>li')).find(btn => btn.textContent.trim() === nextCity);
+        cityBtn.click();
+        await randomDelay();
+      }
       await randomDelay();
       autoApply();
       return;
