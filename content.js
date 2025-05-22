@@ -1,8 +1,8 @@
 let isRunning = false;
 
 // 随机延迟函数
-async function randomDelay() {
-  const delay = Math.floor(Math.random() * 2000) + 1000; // 1-3秒随机延迟
+async function randomDelay(wait = 0) {
+  const delay = Math.floor(Math.random() * 2000) + 1000 +  wait; // 1-3秒随机延迟
   await new Promise(resolve => setTimeout(resolve, delay));
 }
 
@@ -30,7 +30,7 @@ async function autoApply() {
     if (jobCards.length === 0) {
       window.scrollBy(0, 800);
       await randomDelay();
-      const isAtBottom = window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight;
+      const isAtBottom = window.innerHeight + window.pageYOffset+5 >= document.documentElement.scrollHeight;
       if (isAtBottom) {
         console.log('已滚动到页面底部');
         // try to test;
@@ -43,7 +43,7 @@ async function autoApply() {
         const nextCity = cities[cityIndex];
         const cityBtn = Array.from(document.querySelectorAll('.city-list-hot>li')).find(btn => btn.textContent.trim() === nextCity);
         cityBtn.click();
-        await randomDelay();
+        await randomDelay(120 * 1000);
       }
       
       autoApply();
@@ -77,7 +77,7 @@ async function autoApply() {
 
           // 过滤掉半年前活跃的职位
           const activeTime = document.querySelector('.boss-active-time');
-          const activeTimeText = ['半年前活跃', '3月内活跃', '2月内活跃'];
+          const activeTimeText = ['半年前活跃', '4月内活跃', '3月内活跃',  '2月内活跃'];
           if (activeTime && activeTimeText.includes(activeTime.textContent.trim())) {
             continue;
           }
